@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}N-Queens Solver{% endblock %}
+
+{% block body %}
+<div class="page solver-page" id="solverApp" data-n="{{ n }}" data-theme="{{ theme }}" data-queen-style="{{ queen_style }}" data-speed="{{ speed }}">
+  <header class="solver-header">
+    <div class="solver-title-group">
+      <h1>N-Queens Solver</h1>
+      <span>{{ n }}×{{ n }}</span>
+    </div>
+    <label class="toggle-row">
+      <span>Explain</span>
+      <input id="explainToggle" type="checkbox">
+      <span class="toggle-switch" aria-hidden="true"></span>
+    </label>
+  </header>
+
+  <main class="solver-layout">
+    <aside class="log-panel">
+      <div class="panel-header">Algorithm Log</div>
+      <div class="panel-body panel-scroll" id="algorithmLog">
+        <p class="empty-state">Press Start to begin...</p>
+      </div>
+    </aside>
+
+    <section class="board-panel">
+      <div class="solution-banner" id="solutionBanner" hidden></div>
+      <div class="board-shell">
+        <div class="chessboard" id="chessboard" aria-label="N queens chessboard"></div>
+      </div>
+    </section>
+
+    <aside class="stats-panel">
+      <div class="panel-header">Metrics</div>
+      <div class="stats-grid">
+        <article class="stat-card"><p>Total Steps</p><strong id="statTotalSteps">0</strong></article>
+        <article class="stat-card"><p>Backtracks</p><strong id="statBacktracks">0</strong></article>
+        <article class="stat-card"><p>Solutions Found</p><strong id="statSolutionsFound">0</strong></article>
+        <article class="stat-card"><p>Total Solutions</p><strong id="statTotalSolutions">0</strong></article>
+        <article class="stat-card"><p>Board Size</p><strong id="statBoardSize">{{ n }}×{{ n }}</strong></article>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="control-bar">
+    <div class="control-inner">
+      <a class="secondary-button" href="{{ url_for('index') }}">Back</a>
+      <button class="secondary-button" id="stepBackwardButton" type="button">◀</button>
+      <button class="primary-button" id="playButton" type="button">Start</button>
+      <button class="secondary-button" id="stepForwardButton" type="button">▶</button>
+      <button class="secondary-button" id="resetButton" type="button">Reset</button>
+      <button class="secondary-button" id="solutionButton" type="button">Solution</button>
+      <div class="speed-control">
+        <span>Speed</span>
+        <input id="solverSpeed" type="range" min="1" max="100" step="1" value="{{ speed }}">
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="{{ url_for('static', filename='js/solver.js') }}"></script>
+{% endblock %}

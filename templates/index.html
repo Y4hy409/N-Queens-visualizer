@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page home-page">
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="floating-piece floating-piece-a" aria-hidden="true">♛</div>
+  <div class="floating-piece floating-piece-b" aria-hidden="true">♛</div>
+  <div class="floating-piece floating-piece-c" aria-hidden="true">♛</div>
+
+  <section class="hero">
+    <h1>AI N-Queens Visual Solver</h1>
+    <p>Watch the backtracking algorithm solve the N-Queens problem step by step with beautiful visualizations.</p>
+  </section>
+
+  <form class="config-card" action="{{ url_for('solver') }}" method="get">
+    <section class="field-group">
+      <label for="n">Number of Queens (N)</label>
+      <div class="n-control">
+        <button type="button" class="square-button" data-action="decrement">−</button>
+        <div class="n-display">
+          <strong id="nValue">{{ default_n }}</strong>
+          <span id="boardLabel">{{ default_n }} × {{ default_n }} board</span>
+        </div>
+        <button type="button" class="square-button" data-action="increment">+</button>
+      </div>
+      <input id="n" name="n" type="hidden" value="{{ default_n }}">
+    </section>
+
+    <div class="config-columns">
+      <section class="field-group compact-group">
+        <label>Board Theme</label>
+        <div class="option-grid">
+        <label class="option-pill"><input type="radio" name="theme" value="classic" checked><span>Classic Wood</span></label>
+        <label class="option-pill"><input type="radio" name="theme" value="dark"><span>Light</span></label>
+        <label class="option-pill"><input type="radio" name="theme" value="neon"><span>Green</span></label>
+        <label class="option-pill"><input type="radio" name="theme" value="pastel"><span>Newspaper</span></label>
+        </div>
+      </section>
+
+      <section class="field-group compact-group">
+        <label>Queen Piece Style</label>
+        <div class="option-grid">
+        <label class="option-pill"><input type="radio" name="queenStyle" value="classic" checked><span class="option-icon">♛</span><span>Classic Queen</span></label>
+        <label class="option-pill"><input type="radio" name="queenStyle" value="crown"><span class="option-icon">👑</span><span>Crown</span></label>
+        <label class="option-pill"><input type="radio" name="queenStyle" value="robot"><span class="option-icon">🤖</span><span>Robot Queen</span></label>
+        <label class="option-pill"><input type="radio" name="queenStyle" value="minimal"><span class="option-icon">⛀</span><span>Checkers</span></label>
+        </div>
+      </section>
+    </div>
+
+    <section class="field-group">
+      <label for="speed">Algorithm Speed</label>
+      <div class="speed-row">
+        <span>Slow</span>
+        <input id="speed" name="speed" type="range" min="1" max="100" step="1" value="{{ default_speed }}">
+        <span>Fast</span>
+      </div>
+    </section>
+
+    <button class="primary-button" type="submit">Start Visualization</button>
+  </form>
+
+  <p class="footer-note">Powered by Backtracking Algorithm • AI Learning Tool</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}
